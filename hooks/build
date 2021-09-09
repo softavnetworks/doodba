@@ -20,8 +20,6 @@ for target, suffix in (("base", ""), ("onbuild", "-onbuild")):
         "VCS_REF=%s" % COMMIT,
         "--build-arg",
         "BUILD_DATE=%s" % date().strip(),
-        "--build-arg",
-        "ODOO_VERSION=%s" % VERSION,
         "--tag",
         image_name,
         "--target",
