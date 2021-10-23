@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster AS base
+FROM python:3.8-slim-bullseye AS base
 
 EXPOSE 8069 8072
 
@@ -52,8 +52,7 @@ RUN apt-get -qq update \
         openssh-client \
         telnet \
         vim \
-        zlibc \
-    && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' >> /etc/apt/sources.list.d/postgresql.list \
+    && echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' >> /etc/apt/sources.list.d/postgresql.list \
     && curl -SL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
     && apt-get update \
     && curl --silent -L --output geoipupdate_${GEOIP_UPDATER_VERSION}_linux_amd64.deb https://github.com/maxmind/geoipupdate/releases/download/v${GEOIP_UPDATER_VERSION}/geoipupdate_${GEOIP_UPDATER_VERSION}_linux_amd64.deb \
@@ -87,12 +86,11 @@ RUN python -m venv --system-site-packages /qa/venv \
     && pip install \
         click \
         coverage \
-        six \
     && deactivate \
     && mkdir -p /qa/artifacts
 
 ARG ODOO_SOURCE=OCA/OCB
-ARG ODOO_VERSION=14.0
+ARG ODOO_VERSION=15.0
 ENV ODOO_VERSION="$ODOO_VERSION"
 
 # Install Odoo hard & soft dependencies, and Doodba utilities
